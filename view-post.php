@@ -52,10 +52,6 @@ if ($_POST)
 }
 
 
-// Swap carriage returns for paragraph breaks
-$bodyText = htmlEscape($row['body']);
-$paraText = str_replace("\n", "</p><p>", $bodyText);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,12 +74,9 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
 
             <?php echo convertSqlDate($row['created_at']) ?>
         </div>
-        <p>
+         <?php // This is already escaped, so doesn't need further escaping ?>
+        <?php echo convertNewlinesToParagraphs($row['body']) ?>
 
-            <?php // This is already escaped, so doesn't need further escaping ?>
-            <?php echo $paraText ?>
-
-        </p>
         <h3><?php echo countCommentsForPost($postId) ?> comments</h3>
         <?php foreach (getCommentsForPost($postId) as $comment): ?>
             <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
@@ -96,7 +89,9 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
                     <?php echo convertSqlDate($comment['created_at']) ?>
                 </div>
                 <div class="comment-body">
-                    <?php echo htmlEscape($comment['text']) ?>
+                   <?php // This is already escaped ?>
+                    <?php echo convertNewlinesToParagraphs($comment['text']) ?>
+
                 </div>
             </div>
         <?php endforeach ?>
