@@ -34,6 +34,9 @@ if ($stmt === false)
             <div>
 
                 <?php echo convertSqlDate($row['created_at']) ?>
+                
+                (<?php echo countCommentsForPost($row['id']) ?> comments)
+
             </div>
             <p>
 
