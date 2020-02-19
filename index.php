@@ -22,8 +22,12 @@ if ($stmt === false)
 <!DOCTYPE html>
 <html>
     <head>
-        <h1>Blog title</h1>
-        <p>This paragraph summarises what the blog is about.</p>
+        <title>A blog application</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    </head>
+
+        <body>
+        <?php require 'templates/title.php' ?>
         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
             <h2>
                 <?php echo htmlspecialchars($row['title'], ENT_HTML5, 'UTF-8') ?>
