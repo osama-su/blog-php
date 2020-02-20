@@ -5,9 +5,11 @@
  *
  * @return array(count array, error string)
  */
-function installBlog()
+
+function installBlog(PDO $pdo)
 {
-    // Get the PDO DSN string
+
+    // Get a couple of useful project paths
     $root = getRootPath();
     $database = getDatabasePath();
     $error = '';
@@ -40,7 +42,6 @@ function installBlog()
     // Connect to the new database and try to run the SQL commands
     if (!$error)
     {
-        $pdo = getPDO();
         $result = $pdo->exec($sql);
         if ($result === false)
         {
